@@ -5,7 +5,6 @@ import {
   Stack,
   Typography,
   Link,
-  Alert,
   InputLabel,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -26,19 +25,10 @@ const EditUser = () => {
   const EditUserSchema = Yup.object().shape({
     firstName: Yup.string().required("First name is required"),
     lastName: Yup.string().required("Last name is required"),
-    email: Yup.string()
-      .required("Email is required")
-      .email("Email must be valid email address"),
+    email: Yup.string().required("Email is required"),
     mobileNumber: Yup.string().required("Mobile Number is required"),
   });
 
-  const defaultValues = {
-    id: userDetails?._id || "",
-    firstName: userDetails?.firstName || "",
-    lastName: userDetails?.lastName || "",
-    email: userDetails?.email || "",
-    mobileNumber: userDetails?.mobileNumber || "",
-  };
   const methods = useForm({
     resolver: yupResolver(EditUserSchema),
     defaultValues: {
@@ -55,7 +45,7 @@ const EditUser = () => {
     control,
     setError,
     handleSubmit,
-    formState: { errors },
+    formState: { isSubmitting, isSubmitSuccessful, errors },
   } = methods;
 
   const onSubmit = async (data) => {
