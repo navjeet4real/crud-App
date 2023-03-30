@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import DeleteModal from "../components/DeleteModal";
+import EditModal from "../components/EditModal";
 import { FetchUsers } from "../redux/slices/app";
 
 const AllUsers = () => {
@@ -59,13 +60,20 @@ export default AllUsers;
 
 const UserList = ({ firstName, lastName, email, mobileNumber, _id }) => {
   let fullName = firstName + " " + lastName;
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
+  const handleDeleteCloseDialog = () => {
+    setOpenDeleteDialog(false);
   };
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
+  const handleEditCloseDialog = () => {
+    setOpenEditDialog(false);
+  };
+  const handleDeleteOpenDialog = () => {
+    setOpenDeleteDialog(true);
+  };
+  const handleEditOpenDialog = () => {
+    setOpenEditDialog(true);
   };
   return (
     <>
@@ -75,10 +83,14 @@ const UserList = ({ firstName, lastName, email, mobileNumber, _id }) => {
         <td>{mobileNumber}</td>
         <td className="action_td">
           <Stack direction={"row"} spacing={3}>
-            <Button>Edit</Button>
+            <Button
+             onClick={() => {
+              handleEditOpenDialog();
+            }}
+            >Edit</Button>
             <Button
               onClick={() => {
-                handleOpenDialog();
+                handleDeleteOpenDialog();
               }}
             >
               Delete
@@ -86,7 +98,9 @@ const UserList = ({ firstName, lastName, email, mobileNumber, _id }) => {
           </Stack>
         </td>
       </tr>
-      <DeleteModal _id={_id} fullName={fullName} open={openDialog} handleClose={handleCloseDialog} />
+      <DeleteModal _id={_id} fullName={fullName} open={openDeleteDialog} handleClose={handleDeleteCloseDialog} />
+      <EditModal _id={_id} fullName={fullName} open={openEditDialog} handleClose={handleEditCloseDialog} />
+
     </>
   );
 };

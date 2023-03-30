@@ -2,7 +2,7 @@ const User = require("../models/user");
 
 const userController = {
   createUser: async (req, res) => {
-    console.log(req.body, "req ... body")
+    console.log(req.body, "req ... body");
     const { firstName, lastName, email, mobileNumber } = req.body;
     const existing_user = await User.findOne({ email: email });
 
@@ -28,22 +28,24 @@ const userController = {
     }
   },
   getUsers: async (req, res) => {
-    const all_users = await User.find().select("firstName lastName email mobileNumber ");
+    const all_users = await User.find().select(
+      "firstName lastName email mobileNumber "
+    );
 
     res.status(200).json({
-      status: 'success',
+      status: "success",
       data: all_users,
-      message: "Users found successfully!"
-    })
+      message: "Users found successfully!",
+    });
   },
   deleteUser: async (req, res) => {
     try {
       const user_id = req.params.id;
-  
+
       await User.findByIdAndDelete(user_id);
-  
+
       const user = await Property.findById(user_id);
-  
+
       if (!user) {
         return res.status(200).json({
           status: "success",
@@ -54,7 +56,55 @@ const userController = {
       return res.status(500).json({ msg: err.message });
     }
   },
-};
 
+  // get user details by id
+  getUserById: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const userDoc = await User.findById(id);
+      if (!userDoc) {
+        return res.status(400).json("user does not exist");
+      }
+      res.json(userDoc);
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  editUser: async (req, res) => {
+    try {
+      console.log(req.body,"req body rrrrrr")
+
+      const { id, firstName, lastName, email, mobileNumber } = req.body;
+      console.log(id, firstName, lastName, email, mobileNumber,"req body")
+      const existing_user = await User.findById(id);
+
+      if (existing_user) {
+        await User.findOneAndUpdate(
+          { _id: id },
+          {
+            firstName,
+            lastName,
+            email,
+            mobileNumber,
+          }
+        );
+
+        res.status(200).json({
+          status: "success",
+          message: "User edited.",
+        });
+      }
+      else{
+        res.status(400).json({
+          status: "error",
+          message: "User Id not found.",
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+};
 
 module.exports = userController;

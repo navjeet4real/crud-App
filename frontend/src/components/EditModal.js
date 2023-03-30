@@ -1,7 +1,8 @@
-import { Backdrop, Box, Button, Fade, Modal, Typography } from "@mui/material";
+import { Backdrop, Box, Button, Fade, Link, Modal, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { DeleteUserFunc, FetchUsers } from "../redux/slices/app";
+import { useNavigate } from "react-router-dom";
+import { GetUser } from "../redux/slices/app";
 
 const style = {
   position: "absolute",
@@ -15,7 +16,8 @@ const style = {
   p: 4,
 };
 
-export default function DeleteModal  ({ fullName, open, handleClose, _id }) {
+export default function EditModal  ({ fullName, open, handleClose, _id }) {
+    let navigate = useNavigate()
   const dispatch = useDispatch();
   return (
     <>
@@ -35,18 +37,16 @@ export default function DeleteModal  ({ fullName, open, handleClose, _id }) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              Delete User {fullName} from database
+              Edit User {fullName} from database
             </Typography>
-            <Button
-            variant="primary"
+            <Button variant="primary"
               onClick={() => {
-                dispatch(DeleteUserFunc(_id))
-                handleClose()
-                dispatch(FetchUsers());
+                dispatch(GetUser(_id))
+                navigate("/edit")
               }}
-              className="btn2" type="submit"
+              className="btn" type="submit"
             >
-              Delete
+              Edit
             </Button>
           </Box>
         </Fade>

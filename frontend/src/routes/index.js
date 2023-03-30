@@ -21,6 +21,7 @@ export default function Router() {
         { element: <Navigate to={DEFAULT_PATH} replace />, index: true },
         { path: "create", element: <CreateUser /> },
         { path: "users", element: <AllUser /> },
+        { path: "edit", element: <EditUser /> },
       ],
     },
   ]);
@@ -28,3 +29,4 @@ export default function Router() {
 
 const CreateUser = Loadable(lazy(() => import("../dashboard/CreateUser")));
 const AllUser = Loadable(lazy(() => import("../dashboard/AllUsers")));
+const EditUser = Loadable(lazy(() => import("../dashboard/EditUser")));

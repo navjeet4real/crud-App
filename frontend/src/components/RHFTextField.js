@@ -21,7 +21,6 @@ export default function RHFTextField({ name, control, helpertext, ...other }) {
               fullWidth
               rows={5}
               error={!!error}
-              // helpertext={error ? error.message : helpertext}
               {...other}
             />
             {error?.message && <p style={{ color: "red" }}>{error.message}</p>}

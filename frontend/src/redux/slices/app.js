@@ -8,6 +8,7 @@ const initialState = {
     severity: null,
   },
   userList: null,
+  userDetails: null,
 };
 
 const slice = createSlice({
@@ -25,6 +26,9 @@ const slice = createSlice({
     },
     updateUsers(state, action) {
       state.userList = action.payload.users;
+    },
+    getUserDetails(state, action) {
+      state.userDetails = action.payload.userDoc;
     },
   },
 });
@@ -106,7 +110,7 @@ export function FetchUsers() {
   };
 }
 
-export function deleteUserFunc(id) {
+export function DeleteUserFunc(id) {
   return async (dispatch, getState) => {
     await axios
       .delete(`/user/delete/${id}`, {
@@ -121,6 +125,52 @@ export function deleteUserFunc(id) {
         );
       })
       .catch((err) => {
+        console.log(err);
+        dispatch(ShowSnackBar({ severity: "error", message: err.message }));
+      });
+  };
+}
+export function GetUser(id) {
+  console.log(id, "formValues");
+  return async (dispatch, getState) => {
+    await axios
+      .get(`/user/get_user/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response, "response");
+        dispatch(slice.actions.getUserDetails({ userDoc: response.data }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+export function EditUserFunc(formValues, files) {
+  console.log(formValues, "data11");
+  return async (dispatch, getState) => {
+    await axios
+      .post(
+        "/user/edit",
+        {
+          ...formValues,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response, "response");
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+        // dispatch(GetUser(formValues._id));
+      })
+      .catch(function (err) {
         console.log(err);
         dispatch(ShowSnackBar({ severity: "error", message: err.message }));
       });
