@@ -27,7 +27,34 @@ const userController = {
       });
     }
   },
-  getUsers: async (req, res) => {},
+  getUsers: async (req, res) => {
+    const all_users = await User.find().select("firstName lastName email mobileNumber ");
+
+    res.status(200).json({
+      status: 'success',
+      data: all_users,
+      message: "Users found successfully!"
+    })
+  },
+  deleteUser: async (req, res) => {
+    try {
+      const user_id = req.params.id;
+  
+      await User.findByIdAndDelete(user_id);
+  
+      const user = await Property.findById(user_id);
+  
+      if (!user) {
+        return res.status(200).json({
+          status: "success",
+          message: "User deleted.",
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };
+
 
 module.exports = userController;

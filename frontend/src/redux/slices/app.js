@@ -88,7 +88,6 @@ export function FetchUsers() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${getState().auth.token}`,
           },
         }
       )
@@ -98,6 +97,30 @@ export function FetchUsers() {
       })
       .catch((err) => {
         console.log(err);
+      });
+  };
+}
+
+export function deleteUserFunc(id){
+  return async (dispatch, getState) => {
+    await axios
+      .delete(
+        `/user/delete/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response, "response");
+        dispatch(
+          ShowSnackBar({ severity: "success", message: response.data.message })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(ShowSnackBar({ severity: "error", message: err.message }));
       });
   };
 }

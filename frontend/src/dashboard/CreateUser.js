@@ -71,7 +71,7 @@ const CreateUser = () => {
         <Typography variant="h4">Get Started with CRUD App</Typography>
         <Stack direction={"row"} spacing={0.5}>
           <Typography variant="body2">Want to see</Typography>
-          <Link component={RouterLink} to="/dashboard" variant="subtitle2">
+          <Link component={RouterLink} to="/users" variant="subtitle2">
             All Users
           </Link>
         </Stack>
