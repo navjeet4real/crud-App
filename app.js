@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser')
 const cors = require("cors");
+const routes = require('./routes/index')
 
 const app = express()
 
@@ -15,5 +16,6 @@ app.use(cors({
     methods: ["GET", "PATCH", "POST", "DELETE", "PUT"],
     credentials: true,
 }));
+app.use(routes);
 
 module.exports = app;
