@@ -50,7 +50,7 @@ export const CloseSnackBar = () => async (dispatch, getState) => {
 };
 
 export function CreateUserFunc(formValues) {
-  console.log(formValues, "form values")
+  console.log(formValues, "form values");
   return async (dispatch, getState) => {
     await axios
       .post(
@@ -77,6 +77,11 @@ export function CreateUserFunc(formValues) {
         console.log(error);
         dispatch(ShowSnackBar({ severity: "error", message: error.message }));
       })
+      .finally(() => {
+        if (!getState().auth.error) {
+          window.location.href = "/users";
+        }
+      });
   };
 }
 export function FetchUsers() {
@@ -101,17 +106,14 @@ export function FetchUsers() {
   };
 }
 
-export function deleteUserFunc(id){
+export function deleteUserFunc(id) {
   return async (dispatch, getState) => {
     await axios
-      .delete(
-        `/user/delete/${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .delete(`/user/delete/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         console.log(response, "response");
         dispatch(

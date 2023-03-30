@@ -30,8 +30,8 @@ const CreateUser = () => {
   const defaultValues = {
     firstName: "",
     lastName: "",
-    email: "dawg@gmail.com",
-    mobileNumber: "+91 99911 11911",
+    email: "",
+    mobileNumber: "",
   };
   const methods = useForm({
     resolver: yupResolver(UserSchema),
@@ -56,6 +56,7 @@ const CreateUser = () => {
           mobileNumber: data.mobileNumber,
         })
       );
+
     } catch (error) {
       console.error(error, "******error*******");
       reset();

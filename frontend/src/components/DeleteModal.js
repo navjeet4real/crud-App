@@ -15,7 +15,7 @@ const style = {
   p: 4,
 };
 
-const DeleteModal = ({ fullName, open, handleClose, _id }) => {
+export default function DeleteModal  ({ fullName, open, handleClose, _id }) {
   const dispatch = useDispatch();
   return (
     <>
@@ -53,4 +53,3 @@ const DeleteModal = ({ fullName, open, handleClose, _id }) => {
   );
 };
 
-export default DeleteModal;
