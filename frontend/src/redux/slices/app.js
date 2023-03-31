@@ -69,22 +69,20 @@ export function CreateUserFunc(formValues) {
         }
       )
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         dispatch(
           ShowSnackBar({
             severity: "success",
             message: "User Created successfully!",
           })
         );
+        if (response.status === 200) {
+          window.location.href = "/users";
+        }
       })
       .catch((error) => {
         console.log(error);
         dispatch(ShowSnackBar({ severity: "error", message: error.message }));
-      })
-      .finally(() => {
-        if (!getState().auth.error) {
-          window.location.href = "/users";
-        }
       });
   };
 }
@@ -123,6 +121,7 @@ export function DeleteUserFunc(id) {
         dispatch(
           ShowSnackBar({ severity: "success", message: response.data.message })
         );
+        dispatch(FetchUsers());
       })
       .catch((err) => {
         console.log(err);
@@ -149,7 +148,6 @@ export function GetUser(id) {
   };
 }
 export function EditUserFunc(formValues, files) {
-  console.log(formValues, "data11");
   return async (dispatch, getState) => {
     await axios
       .post(

@@ -8,14 +8,12 @@ import { FetchUsers, GetUser } from "../redux/slices/app";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
-
   const { userList } = useSelector((state) => state.app);
 
   useEffect(() => {
     dispatch(FetchUsers());
   }, []);
 
-  console.log(userList, "userlist");
   return (
     <>
       <Stack spacing={2} sx={{ mb: 5, position: "relative" }}>

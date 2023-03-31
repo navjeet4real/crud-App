@@ -42,7 +42,6 @@ export default function DeleteModal  ({ fullName, open, handleClose, _id }) {
               onClick={() => {
                 dispatch(DeleteUserFunc(_id))
                 handleClose()
-                dispatch(FetchUsers());
               }}
               className="btn2" type="submit"
             >

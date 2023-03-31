@@ -44,7 +44,7 @@ const userController = {
 
       await User.findByIdAndDelete(user_id);
 
-      const user = await Property.findById(user_id);
+      const user = await User.findById(user_id);
 
       if (!user) {
         return res.status(200).json({
