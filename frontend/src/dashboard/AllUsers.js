@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import DeleteModal from "../components/DeleteModal";
 import EditModal from "../components/EditModal";
-import { FetchUsers } from "../redux/slices/app";
+import { FetchUsers, GetUser } from "../redux/slices/app";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
@@ -59,6 +59,7 @@ const AllUsers = () => {
 export default AllUsers;
 
 const UserList = ({ firstName, lastName, email, mobileNumber, _id }) => {
+  const dispatch = useDispatch();
   let fullName = firstName + " " + lastName;
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -86,6 +87,7 @@ const UserList = ({ firstName, lastName, email, mobileNumber, _id }) => {
             <Button
              onClick={() => {
               handleEditOpenDialog();
+              dispatch(GetUser(_id))
             }}
             >Edit</Button>
             <Button

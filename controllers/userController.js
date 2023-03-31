@@ -92,6 +92,7 @@ const userController = {
 
         res.status(200).json({
           status: "success",
+          id: id,
           message: "User edited.",
         });
       }
@@ -99,6 +100,7 @@ const userController = {
         res.status(400).json({
           status: "error",
           message: "User Id not found.",
+
         });
       }
     } catch (err) {

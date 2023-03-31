@@ -5,14 +5,15 @@ const mongoose = require("mongoose");
 const http = require("http");
 
 const server = http.createServer(app);
-const DB = process.env.DBURI
+const DB = "mongodb+srv://navjeetkajal2594:Wojtek4real@cluster0.h3yelhk.mongodb.net/?retryWrites=true&w=majority"
+const PORT = 8000
 
 mongoose.connect(DB).then((prop) => {
     console.log("Mongo Connecteddd... !")
 }).catch((err) => {
     console.log(err)
 })
-const port = process.env.PORT
+const port = PORT
 
 server.listen(port, () => {
     console.log(`App is running on port ${port}`)

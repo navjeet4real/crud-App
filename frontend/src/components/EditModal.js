@@ -1,8 +1,6 @@
-import { Backdrop, Box, Button, Fade, Link, Modal, Typography } from "@mui/material";
+import { Backdrop, Box, Button, Fade, Modal, Typography } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { GetUser } from "../redux/slices/app";
 
 const style = {
   position: "absolute",
@@ -18,7 +16,6 @@ const style = {
 
 export default function EditModal  ({ fullName, open, handleClose, _id }) {
     let navigate = useNavigate()
-  const dispatch = useDispatch();
   return (
     <>
       <Modal
@@ -41,7 +38,6 @@ export default function EditModal  ({ fullName, open, handleClose, _id }) {
             </Typography>
             <Button variant="primary"
               onClick={() => {
-                dispatch(GetUser(_id))
                 navigate("/edit")
               }}
               className="btn" type="submit"

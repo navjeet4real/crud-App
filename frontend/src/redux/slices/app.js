@@ -168,7 +168,7 @@ export function EditUserFunc(formValues, files) {
         dispatch(
           ShowSnackBar({ severity: "success", message: response.data.message })
         );
-        // dispatch(GetUser(formValues._id));
+        dispatch(GetUser(response.data.id));
       })
       .catch(function (err) {
         console.log(err);

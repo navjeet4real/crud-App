@@ -59,7 +59,6 @@ const EditUser = () => {
           mobileNumber: data.mobileNumber,
         })
       );
-      dispatch(GetUser(userDetails._id));
     } catch (error) {
       console.error(error, "******error*******");
       reset();
