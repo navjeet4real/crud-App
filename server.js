@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const http = require("http");
 
 const server = http.createServer(app);
-const DB = "mongodb+srv://navjeetkajal2594:Wojtek4real@cluster0.h3yelhk.mongodb.net/?retryWrites=true&w=majority"
-const PORT = 8000
+const DB = process.env.DBURI
+const PORT = process.env.PORT
 
 mongoose.connect(DB).then((prop) => {
     console.log("Mongo Connecteddd... !")
